@@ -181,6 +181,7 @@ const renderStatsCard = (stats = {}, options = { hide: [] }) => {
   card.setHideBorder(hide_border);
   card.setHideTitle(hide_title);
   card.setCSS(cssStyles);
+  card.setHideNote(false);
 
   return card.render(`
     ${rankCircle}

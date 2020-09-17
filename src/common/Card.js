@@ -1,4 +1,4 @@
-const { FlexLayout } = require("../common/utils");
+﻿const { FlexLayout } = require("../common/utils");
 const { getAnimations } = require("../getStyles");
 
 class Card {
@@ -14,6 +14,7 @@ class Card {
 
     this.hideBorder = false;
     this.hideTitle = false;
+    this.hideNote = true;
 
     // returns theme based colors with proper overrides and defaults
     this.colors = colors;
@@ -43,6 +44,10 @@ class Card {
     if (value) {
       this.height -= 30;
     }
+  }
+
+  setHideNote(value) {
+    this.hideNote = value;
   }
 
   setTitle(text) {
@@ -106,6 +111,10 @@ class Card {
       : "";
   }
 
+  renderNote() {
+    return `<text x="${this.paddingX}" y="${this.height - 60}" class="note">P.S. Everyone is a ⭐ and deserves a chance to shine. 😊 </text>`;
+  }
+
   render(body) {
     return `
       <svg
@@ -118,6 +127,11 @@ class Card {
         <style>
           .header {
             font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
+            fill: ${this.colors.titleColor};
+            animation: fadeInAnimation 0.8s ease-in-out forwards;
+          }
+          .note {
+            font: 600 12px 'Segoe UI', Ubuntu, Sans-Serif;
             fill: ${this.colors.titleColor};
             animation: fadeInAnimation 0.8s ease-in-out forwards;
           }
@@ -137,7 +151,7 @@ class Card {
           x="0.5"
           y="0.5"
           rx="4.5"
-          height="99%"
+          height="100%"
           stroke="#E4E2E2"
           width="${this.width - 1}"
           fill="${
@@ -157,6 +171,7 @@ class Card {
           })"
         >
           ${body}
+          ${this.hideNote ? "" : this.renderNote()}
         </g>
       </svg>
     `;
